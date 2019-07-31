@@ -14,22 +14,25 @@ body {
 
 .functions {
   position: fixed;
-  right: 80px;
+  right: 35px;
   top: 30px;
   z-index: 1;
 }
 
-#reset-position-btn, #add-planet-btn, #clear-traces-btn {
-  width: 100px;
-  height: 50px;
+.functions-button {
+  width: 70px;
+  height: 40px;
+}
+
+/*#play-span, #pause-span, #reset-position-span, #add-planet-span, #tot-planet-number, #clear-traces-span {*/
+.functions-button-span {
+  font-family: 'Roboto Mono', monospace;
+  font-size: small;
 }
 
 #tot-planet-number-btn {
-  width: 200px;
-  height: 30px;
-}
-
-#reset-position-span, #add-planet-span, #tot-planet-number, #clear-traces-span {
-  font-family: 'Roboto Mono', monospace;
-  font-size: medium;
+  position: fixed;
+  z-index: 1;
+  left: 30px;
+  top: 30px;
 }

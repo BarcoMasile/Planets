@@ -1,25 +1,25 @@
 
 function Planet(mass, velocity, mesh, radius = 3) {
+
     this.mass = mass;
-    this.mesh = mesh; // || new THREE.SphereBufferGeometry(3, 30, 30);
+    this.mesh = mesh;
     this.velocity = velocity || new THREE.Vector3(2, 2, 2);
     this.acceleration = new THREE.Vector3(2, 2, 2);
     this.radius = radius;
 
-    this.getPosition = function(){
+    this.getPosition = function() {
         return this.mesh.position;
     };
 
     this.getRadius = function() {
-        // return this.mesh.geometry.boundingSphere.radius;
         return this.radius;
     };
 
-    this.getVelocity = function(){
+    this.getVelocity = function() {
         return this.velocity;
     };
 
-    this.distanceFrom = function(body){
+    this.distanceFrom = function(body) {
         return this.getPosition().distanceTo(body.getPosition());
     };
 

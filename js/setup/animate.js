@@ -15,6 +15,12 @@ function animate() {
   });
 }
 
+function togglePlayPause() {
+  simulationRunning ? stop() : play();
+  simulationRunning = !simulationRunning;
+  document.getElementById("play-pause").innerHTML = simulationRunning ? "pause" : "play_arrow";
+}
+
 function play() {
   animate();
 }
@@ -24,57 +30,6 @@ function stop() {
 }
 
 function updateObjects(delta){
-  // var nextArray = [];
-  // var bodiesCount = celestialBodies.length;
-  // for (var i = 0; i < bodiesCount; i++) {
-  //   if (celestialBodies[i].markedForRemoval) {
-  //     scene.remove(celestialBodies[i].mesh);
-  //   }
-  //   else {
-  //     nextArray.push(celestialBodies[i]);
-  //   }
-  // }
-  //
-  // celestialBodies = nextArray;
-  //
-  // for (var i = 0; i < newCelestialBodies.length; i++) {
-  //   scene.add(newCelestialBodies[i].mesh);
-  //   celestialBodies.push(newCelestialBodies[i]);
-  //   updateTotPlanetNumber();
-  // }
-  //
-  // newCelestialBodies = [];
-  //
-  // for (var i = 0; i < celestialBodies.length; i++) {
-  //   for (var j = 0; j < celestialBodies.length; j++) {
-  //     if (celestialBodies[i] === celestialBodies[j]) {
-  //       continue;
-  //     }
-  //
-  //     celestialBodies[i].addForceContribution(celestialBodies[j]);
-  //   }
-  // }
-  //
-  // for (var i = 0; i < celestialBodies.length; i++) {
-  //   // a problem, that arises when the browser tab is changed, should be fixed
-  //   celestialBodies[i].updatePosition();
-  //
-  //   if (celestialBodies[i].getPosition().distanceTo(new THREE.Vector3(0, 0, 0)) > Constants.REMOVAL_DISTANCE_THRESHOLD) {
-  //     celestialBodies[i].markedForRemoval = true;
-  //   }
-  // }
-  //
-  // for (var i = 0; i < celestialBodies.length; i++) {
-  //   for (var j = 0; j < celestialBodies.length; j++) {
-  //     if (celestialBodies[i] === celestialBodies[j]) {
-  //       continue;
-  //     }
-  //     resolveCollision(celestialBodies[i], celestialBodies[j]);
-  //   }
-  // }
-
-  //
-
   trajClick++;
   var nextArray = [];
   var bodiesCount = celestialBodies.length;
@@ -132,53 +87,6 @@ function updateObjects(delta){
 }
 
 function resolveCollision(firstBody, secondBody){
-  // check se collidono davvero
-  // if(!firstBody.overlaps(secondBody)){
-  //   return;
-  // }
-  // if (firstBody.markedForRemoval || secondBody.markedForRemoval){
-  //   return;
-  // }
-  //
-  // firstBody.markedForRemoval = true;
-  // secondBody.markedForRemoval = true;
-  // // the most massive body retains its properties (color, radius, etc...)
-  // var prototypeBody;
-  // var disappearingBody;
-  // if(firstBody.mass >= secondBody.mass){
-  //   prototypeBody = firstBody;
-  //   disappearingBody = secondBody;
-  // }
-  // else{
-  //   prototypeBody = secondBody;
-  //   disappearingBody = firstBody;
-  // }
-  //
-  // var maxRadius = Math.max(firstBody.getRadius(), secondBody.getRadius());
-  // var unionGeometry = new THREE.SphereGeometry(maxRadius, 32, 32);
-  // var material = prototypeBody.mesh.material; // new THREE.MeshLambertMaterial({color: 0xFF0000});
-  // var unionMesh = new THREE.Mesh(unionGeometry, material);
-  //
-  // var position = prototypeBody.getPosition().clone();
-  //
-  // unionMesh.position.x = position.x;
-  // unionMesh.position.y = position.y;
-  // unionMesh.position.z = position.z;
-  //
-  // var sumMass = firstBody.mass + secondBody.mass;
-  // var velocity = (firstBody.velocity.clone().multiplyScalar(firstBody.mass).add( secondBody.velocity.clone().multiplyScalar(secondBody.mass) ))
-  // velocity.divideScalar(sumMass);
-  // velocity.addScalar(8);
-  //
-  // var unionBody = new Planet(sumMass, velocity, unionMesh);
-  // unionBody.mainPlanet = firstBody.mainPlanet || secondBody.mainPlanet;
-  // if (unionBody.mainPlanet) {
-  //   mainPlanet = unionBody;
-  // }
-  // newCelestialBodies.push(unionBody);
-  // updateTotPlanetNumber();
-
-  //
 
   if (!firstBody.overlaps(secondBody)) {
     return;
@@ -192,18 +100,18 @@ function resolveCollision(firstBody, secondBody){
   secondBody.markedForRemoval = true;
   // the most massive body retains its properties (color, radius, etc...)
   var prototypeBody;
-  var disappearingBody;
+  //var disappearingBody;
   if (firstBody.mass >= secondBody.mass) {
     prototypeBody = firstBody;
-    disappearingBody = secondBody;
+    // disappearingBody = secondBody;
   } else {
     prototypeBody = secondBody;
-    disappearingBody = firstBody;
+    // disappearingBody = firstBody;
   }
 
   var maxRadius = Math.max(firstBody.getRadius(), secondBody.getRadius());
   var unionGeometry = new THREE.SphereGeometry(maxRadius, 32, 32);
-  var material = prototypeBody.mesh.material;
+  var material = prototypeBody.mesh.material.clone();
   var unionMesh = new THREE.Mesh(unionGeometry, material);
 
   var position = prototypeBody.getPosition().clone();
@@ -220,8 +128,11 @@ function resolveCollision(firstBody, secondBody){
   var velocity = (firstBody.velocity.clone().multiplyScalar(firstBody.mass).add(secondBody.velocity.clone().multiplyScalar(secondBody.mass)));
   velocity.divideScalar(sumMass);
 
-  var unionBody = new Planet(sumMass, velocity, unionMesh);
+  unionBodyRadius = calculateIncrementedRadius(firstBody, secondBody);
+  let unionBody = new Planet(sumMass, velocity, unionMesh, unionBodyRadius);
+  // unionBody.radius = unionBodyRadius;
 
+  console.log("New planet from collision, mass: " + unionBody.mass + " radius: " + unionBody.radius);
   newCelestialBodies.push(unionBody);
   updateTotPlanetNumber();
 }

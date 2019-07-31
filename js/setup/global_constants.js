@@ -1,7 +1,7 @@
 Constants = {
     "G" : 6.673E-11,
-    "EARTH_MASS" : 10E13, // 	5.972E+24,
-    "EARTH_RADIUS": 5,
+    "SUN_MASS" : 10E13, // 	5.972E+24,
+    "SUN_RADIUS": 24,
     "MOON_MASS" : 3E10, // 7.348E+22,
     "MOON_RADIUS": 1,
     "JUPITER_MASS" : 1.8986E+27,

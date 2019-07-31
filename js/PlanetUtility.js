@@ -1,7 +1,6 @@
 
 function addPlanet(radius, segments, color, mass, velocity, position, scene){
     var geometry = new THREE.SphereGeometry( radius, segments, segments);
-    // var material = new THREE.MeshPhongMaterial( {color: color} );
     var material = new THREE.MeshLambertMaterial( { map: textureMoon } );
     var mesh = new THREE.Mesh( geometry, material );
     var body = new Planet(mass, velocity, mesh);
@@ -16,21 +15,13 @@ function addPlanet(radius, segments, color, mass, velocity, position, scene){
 }
 
 function addOriginMassiveBody(scene){
-    // var planetGeometry = new THREE.SphereGeometry( 12, 32, 32);
-    // var material = new THREE.MeshPhongMaterial( {color: 0xffff00} );
-    // var planetSphere = new THREE.Mesh( planetGeometry, material );
     var planetSphere;
-    // var loader = new THREE.TextureLoader();
-    // // loader.setCrossOrigin("**");
-    // // const texture = loader.load("textures/earth.jpg");
-    // textureOrigin = loader.load("textures/earth.jpg");
-    // textureMoon = loader.load("textures/moon-texture.jpg");
 
-    var geometry = new THREE.SphereBufferGeometry( 12, 32, 32 );
+    var geometry = new THREE.SphereBufferGeometry( Constants.SUN_RADIUS, 32, 32 );
     var material = new THREE.MeshLambertMaterial( { map: textureOrigin } );
     planetSphere = new THREE.Mesh( geometry, material );
-    var planet = new Planet(Constants.EARTH_MASS, new THREE.Vector3(0, 0, 0), planetSphere);
-    planet.radius = 12;
+    var planet = new Planet(Constants.SUN_MASS, new THREE.Vector3(0, 0, 0), planetSphere, Constants.SUN_RADIUS);
+    planet.radius = Constants.SUN_RADIUS;
 
     mainPlanet = planet;
     mainPlanet.mainPlanet = true;
@@ -47,11 +38,6 @@ function addSpiralOfBodies(scene){
         var additionalMoonGeometry = new THREE.SphereGeometry(1, 32, 32);
         changingColor.add( new THREE.Color(256 + i));
 
-        var loader = new THREE.TextureLoader();
-        loader.setCrossOrigin("**");
-        // const texture = loader.load("textures/moon-texture.jpg");
-
-        //var additionalMaterial = new THREE.MeshLambertMaterial( { map: texture } );
         var additionalMaterial = new THREE.MeshLambertMaterial( { map: textureMoon } );
         var additionalMoonSphere = new THREE.Mesh(additionalMoonGeometry, additionalMaterial);
         var distance = 50 + i * 2;
@@ -64,8 +50,8 @@ function addSpiralOfBodies(scene){
         var vx = -1 * (vConst) * Math.sin(alpha * i);
         var vz = (vConst) * Math.cos(alpha * i);
 
-        var additionalMoon = new Planet(Constants.MOON_MASS, new THREE.Vector3(vx + 5, 5, vz), additionalMoonSphere);
-        additionalMoon.radius = 1;
+        var additionalMoon = new Planet(Constants.MOON_MASS, new THREE.Vector3(vx + 5, 5, vz), additionalMoonSphere, Constants.MOON_RADIUS);
+        additionalMoon.radius = Constants.MOON_RADIUS;
 
         additionalMoonSphere.position.x = x;
         additionalMoonSphere.position.y = y;
@@ -75,21 +61,6 @@ function addSpiralOfBodies(scene){
         celestialBodies.push(additionalMoon);
         updateTotPlanetNumber();
     }
-}
-
-function addTrajectorySegment_1(object, startPoint, endPoint) {
-
-    if (!object.trajectory) {
-        object.trajectory = new THREE.Group();
-        scene.add(object.trajectory);
-    }
-
-    var lineGeometry = new THREE.Geometry();
-    lineGeometry.vertices.push(startPoint);
-    lineGeometry.vertices.push(endPoint);
-    var trajectoryLine = new THREE.Line(lineGeometry, trajectoriesMaterial);
-    object.trajectory.add(trajectoryLine);
-    // scene.add(trajectoryLine);
 }
 
 function addTrajectorySegment(object, startPoint, endPoint) {
@@ -112,6 +83,18 @@ function addTrajectorySegment(object, startPoint, endPoint) {
     var trajectory = new THREE.Line(trajectoryGeometry, material);
     object.trajectory = trajectory;
     scene.add(trajectory);
+}
+
+function calculateIncrementedRadius(planet1, planet2) {
+    maxRadius = Math.max(planet1.getRadius(), planet2.getRadius());
+    totalMass = planet1.mass + planet2.mass;
+    incrementMass = Math.min(planet1.mass, planet2.mass);
+
+    // totalMass : 100 = incrementMass : x => 100 * incrementMass / totalMass
+    incrementPercentage = 100.0 * incrementMass / totalMass;
+    incrementedRadius = maxRadius + maxRadius * incrementPercentage;
+    // console.log("OldRadius " + maxRadius + " NEW INCREMENTED RADIUS " + incrementedRadius);
+    return incrementedRadius;
 }
 
 /*function drawHelperPlane(scene) {

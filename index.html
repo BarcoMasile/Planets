@@ -6,33 +6,40 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="icon" href="https://discoverthreejs.com/favicon.ico" type="image/x-icon">
     <link href="styles/main.css" rel="stylesheet" type="text/css">
-
+      <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
     <script src="js/lib/three.js" type="text/javascript"></script>
 
   </head>
 
   <body>
 
+  <button class="functions-button" id="tot-planet-number-btn" onclick="(event) => event.preventDefault()">
+      <span class="functions-button-span" id="tot-planet-number" style="text-align: center"readonly></span>
+  </button>
+
   <div class="btn-group functions">
-    <button id="reset-position-btn" onclick="resetViewPosition()">
-      <span id="reset-position-span">Reset View</span>
-    </button>
-
-    <button id="add-planet-btn" onclick="addPlanetFromView()">
-      <span id="add-planet-span">Add Planet</span>
+    <button class="functions-button" id="play-btn" onclick="togglePlayPause()">
+        <i id="play-pause" class="material-icons">pause</i>
     </button>
     <br>
     <br>
-
-    <button id="clear-traces-btn" onclick="clearTraces()">
-      <span id="clear-traces-span">Clear Traces</span>
+    <button class="functions-button" id="reset-position-btn" onclick="resetViewPosition()">
+    <span class="functions-button-span" id="reset-position-span">Reset View</span>
     </button>
     <br>
     <br>
 
-    <button id="tot-planet-number-btn" onclick="(event) => event.preventDefault()">
-      <span id="tot-planet-number" readonly></span>
+    <button class="functions-button" id="add-planet-btn" onclick="addPlanetFromView()">
+    <span class="functions-button-span" id="add-planet-span">Add Planet</span>
     </button>
+    <br>
+    <br>
+
+    <button class="functions-button" id="clear-traces-btn" onclick="clearTraces()">
+    <span class="functions-button-span" id="clear-traces-span">Clear Traces</span>
+    </button>
+    <br>
+    <br>
   </div>
 
   <div id="scene-container">
