@@ -85,6 +85,8 @@ function addTrajectorySegment(object, startPoint, endPoint) {
     scene.add(trajectory);
 }
 
+let normalizationFactor = 0.10;
+
 function calculateIncrementedRadius(planet1, planet2) {
     maxRadius = Math.max(planet1.getRadius(), planet2.getRadius());
     totalMass = planet1.mass + planet2.mass;
@@ -94,7 +96,7 @@ function calculateIncrementedRadius(planet1, planet2) {
     incrementPercentage = 100.0 * incrementMass / totalMass;
     incrementedRadius = maxRadius + maxRadius * incrementPercentage;
     // console.log("OldRadius " + maxRadius + " NEW INCREMENTED RADIUS " + incrementedRadius);
-    return incrementedRadius;
+    return incrementedRadius; // * normalizationFactor;
 }
 
 /*function drawHelperPlane(scene) {
