@@ -85,18 +85,34 @@ function addTrajectorySegment(object, startPoint, endPoint) {
     scene.add(trajectory);
 }
 
-let normalizationFactor = 0.10;
-
 function calculateIncrementedRadius(planet1, planet2) {
-    maxRadius = Math.max(planet1.getRadius(), planet2.getRadius());
-    totalMass = planet1.mass + planet2.mass;
-    incrementMass = Math.min(planet1.mass, planet2.mass);
+    // maxRadius = Math.max(planet1.getRadius(), planet2.getRadius());
+    /////totalMass = planet1.mass + planet2.mass;
+    // incrementMass = Math.min(planet1.mass, planet2.mass);
+    //
+    // // totalMass : 100 = incrementMass : x => 100 * incrementMass / totalMass
+    // incrementPercentage = 100.0 *incrementMass / totalMass;
+    // incrementedRadius = maxRadius + maxRadius * incrementPercentage;
+    // console.log("Radius incremented by: " + incrementedRadius - maxRadius);
+    // return incrementedRadius;
 
-    // totalMass : 100 = incrementMass : x => 100 * incrementMass / totalMass
-    incrementPercentage = 100.0 * incrementMass / totalMass;
-    incrementedRadius = maxRadius + maxRadius * incrementPercentage;
-    // console.log("OldRadius " + maxRadius + " NEW INCREMENTED RADIUS " + incrementedRadius);
-    return incrementedRadius; // * normalizationFactor;
+    // totalVolume = 4/3 * r^3  =>  cbrt(3/4 * totalVolume) = r
+    // totalVolume = volumeSun + volumeMoon
+    // totalVolume = 4/3 * sun_r^3 + 4/3 * moon_r^3
+    /////totalVolume = 4.0/3.0 * (Constants.SUN_RADIUS**3 + Constants.MOON_RADIUS**3);
+    /////console.log("SunVolume: " + 4.0/3.0 * Constants.SUN_RADIUS**3);
+    /////console.log("MoonVolume: " + 4.0/3.0 * Constants.MOON_RADIUS**3);
+    /////console.log("TotalVolume: " + totalVolume);
+    /////newRadius = Math.cbrt(Constants["3/4"] * totalVolume);
+
+    // normalize
+    // SunMass : SunRadius = NewSunMass : newRadius
+    // normalizedRadius = newRadius * Constants.SUN_MASS / totalMass;
+    /////console.log("NewRadius: " + newRadius);
+    /////return newRadius;
+
+    return Math.max(planet1.getRadius(), planet2.getRadius()) + Constants.RADIUS_INCREMENT;
+
 }
 
 /*function drawHelperPlane(scene) {

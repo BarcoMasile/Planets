@@ -13,7 +13,8 @@ Constants = {
     "REMOVE_DISTANT_BODIES" : true,
     "REMOVAL_DISTANCE_THRESHOLD" : 1E4,
     "CAMERA_MOVEMENT_STEP" : 1,
-    "CONTROLS_TYPE" : "trackball"
+    "CONTROLS_TYPE" : "trackball",
+    "RADIUS_INCREMENT": 0.025
 };
 
 Settings = {
