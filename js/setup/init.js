@@ -13,14 +13,31 @@ function init() {
   addOriginMassiveBody(scene);
   addSpiralOfBodies(scene);
 
+  //////
+  // var additionalMoonGeometry = new THREE.SphereGeometry(1, 32, 32);
+  // var additionalMaterial = new THREE.MeshLambertMaterial( { map: textureMoon } );
+  // var additionalMoonSphere = new THREE.Mesh(additionalMoonGeometry, additionalMaterial);
+  // var additionalMoon = new Planet(Constants.MOON_MASS, new THREE.Vector3(), additionalMoonSphere, Constants.MOON_RADIUS);
+  // additionalMoon.radius = Constants.MOON_RADIUS;
+  // scene.add(additionalMoonSphere);
+
+  var lux = new THREE.PointLight("red", 100, 100000);
+  scene.add(lux);
+  /////
+
   document.addEventListener(
       'mousemove',
       function(event) {
           event.preventDefault();
-          const x = (event.clientX / window.innerWidth) * 2 - 1;
-          const y = -(event.clientY / window.innerHeight) * 2 + 1;
+          let x = (event.clientX / window.innerWidth) * 2 - 1;
+          let y = -(event.clientY / window.innerHeight) * 2 + 1;
 
+          // x *= 75;
+          // y *= 75;
           mouse.set(x, y);
+          // lux.position.set(x,y, mainPlanet.getPosition().z + 50);
+          // additionalMoon.mesh.position.set(x,y, mainPlanet.mesh.position.z +50);
+          // console.log(additionalMoon.mesh.position.x,additionalMoon.mesh.position.y);
         },
       false
   );

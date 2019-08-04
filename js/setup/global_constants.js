@@ -23,7 +23,7 @@ Settings = {
     "CAMERA_FAR_DISTANCE": 100000,
     "ORIGIN_TEXTURE_FILE": "textures/sun-texture-midres-3.jpg",
     "MOON_TEXTURE_FILE": "textures/moon-texture.jpg",
-    "PLANE_SIZE": 600,
+    "PLANE_SIZE": 1000,
     "PLANE_VISIBLE": false,
     "PLANE_OPACITY": 0
 };

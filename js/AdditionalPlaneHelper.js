@@ -16,6 +16,8 @@ function addPlanetFromAdditionalPlane() {
     var additionalMoonGeometry = new THREE.SphereGeometry(1, 32, 32);
     var additionalMaterial = new THREE.MeshLambertMaterial( { map: textureMoon } );
     var additionalMoonSphere = new THREE.Mesh(additionalMoonGeometry, additionalMaterial);
+    additionalMoonSphere.position.set(intersectionPoint.x, intersectionPoint.y, intersectionPoint.z);
+    console.log("Mesh position: ", intersectionPoint.x, intersectionPoint.y, intersectionPoint.z);
 
     var additionalMoon = new Planet(Constants.MOON_MASS, velocity, additionalMoonSphere, Constants.MOON_RADIUS);
     additionalMoon.radius = Constants.MOON_RADIUS;
