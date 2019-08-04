@@ -7,8 +7,18 @@ function resetViewPosition() {
 function addPlanetFromView() {
   addPlanetMode = true;
   showAdditionalPlane = true;
+  deleteAdditionalPlanes();
   drawAdditionalPlane();
   togglePlayPause();
+}
+
+function toggleGrid(){
+  showAdditionalPlane = !showAdditionalPlane;
+  if (showAdditionalPlane) {
+    drawAdditionalPlane();
+  } else {
+    deleteAdditionalPlanes();
+  }
 }
 
 function updateTotPlanetNumber() {

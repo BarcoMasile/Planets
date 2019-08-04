@@ -17,8 +17,10 @@ function init() {
       'mousemove',
       function(event) {
           event.preventDefault();
-          mouse.x = (event.clientX / window.innerWidth) * 2 - 1;
-          mouse.y = -(event.clientY / window.innerHeight) * 2 + 1;
+          const x = (event.clientX / window.innerWidth) * 2 - 1;
+          const y = -(event.clientY / window.innerHeight) * 2 + 1;
+
+          mouse.set(x, y);
         },
       false
   );
@@ -117,6 +119,8 @@ function createStars() {
 
 function drawAdditionalPlane() {
   if (additionalPlanes.length !== 0) {
+    showAdditionalPlane = false;
+    addPlanetMode = false;
     return;
   }
   const x = mainPlanet.getPosition().x, y = mainPlanet.getPosition().y, z = mainPlanet.getPosition().z;
@@ -148,8 +152,8 @@ function drawAdditionalPlane() {
 
 function deleteAdditionalPlanes() {
   showAdditionalPlane = false;
-  console.log("Not showing anymore");
   scene.remove(grid);
   scene.remove(additionalPlanesGroup);
+  additionalPlanes = [];
   grid = null;
 }

@@ -15,7 +15,7 @@ Constants = {
     "CAMERA_MOVEMENT_STEP" : 1,
     "CONTROLS_TYPE" : "trackball",
     "RADIUS_INCREMENT_PERCENTAGE": 1.005,
-    "VELOCITY_MAGNITUDE": 10
+    "VELOCITY_MAGNITUDE": 15
 };
 
 Settings = {
@@ -24,7 +24,7 @@ Settings = {
     "ORIGIN_TEXTURE_FILE": "textures/sun-texture-midres-3.jpg",
     "MOON_TEXTURE_FILE": "textures/moon-texture.jpg",
     "PLANE_SIZE": 600,
-    "PLANE_VISIBLE": true,
+    "PLANE_VISIBLE": false,
     "PLANE_OPACITY": 0
 };
 
