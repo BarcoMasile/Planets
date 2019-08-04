@@ -3,7 +3,7 @@ Constants = {
     "SUN_MASS" : 10E13, // 	5.972E+24,
     "SUN_RADIUS": 24,
     "MOON_MASS" : 3E10, // 7.348E+22,
-    "MOON_RADIUS": 1,
+    "MOON_RADIUS": 2,
     "JUPITER_MASS" : 1.8986E+27,
     "EARTH_MOON_DISTANCE" : 384400000, //384,400 Km
     "EARTH_MOON_SCREEN_DISTANCE" : 50,
@@ -14,14 +14,18 @@ Constants = {
     "REMOVAL_DISTANCE_THRESHOLD" : 1E4,
     "CAMERA_MOVEMENT_STEP" : 1,
     "CONTROLS_TYPE" : "trackball",
-    "RADIUS_INCREMENT": 0.025
+    "RADIUS_INCREMENT_PERCENTAGE": 1.005,
+    "VELOCITY_MAGNITUDE": 10
 };
 
 Settings = {
     "CAMERA_INITIAL_DISTANCE": 200,
     "CAMERA_FAR_DISTANCE": 100000,
-    "ORIGIN_TEXTURE_FILE": "textures/sun-texture-midres-2.jpg",
-    "MOON_TEXTURE_FILE": "textures/moon-texture.jpg"
+    "ORIGIN_TEXTURE_FILE": "textures/sun-texture-midres-3.jpg",
+    "MOON_TEXTURE_FILE": "textures/moon-texture.jpg",
+    "PLANE_SIZE": 600,
+    "PLANE_VISIBLE": true,
+    "PLANE_OPACITY": 0
 };
 
 Constants.DISTANCE_SCALE_FACTOR = Constants.EARTH_MOON_DISTANCE / Constants.EARTH_MOON_SCREEN_DISTANCE;

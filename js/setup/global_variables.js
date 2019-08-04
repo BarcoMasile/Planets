@@ -1,4 +1,4 @@
-// these need to be accessed inside more than one function so we'll declare them first
+
 let container;
 let camera;
 let controls;
@@ -8,11 +8,19 @@ let mainPlanet;
 let clock;
 let mouse;
 let raycaster;
+let axes;
 let trajectoriesMaterial;
 let addPlanetMode = false;
+let newlyCreatedMoon;
 let simulationRunning = true;
 let celestialBodies = [];
 let newCelestialBodies = [];
+
+let showAdditionalPlane = false;
+let additionalPlanes = [];
+let grid;
+// let plane;
+let additionalPlanesGroup;
 
 let trajClick = 0;
 

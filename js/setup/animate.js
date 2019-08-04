@@ -26,7 +26,7 @@ function play() {
 }
 
 function stop() {
-  renderer.setAnimationLoop(null);
+  // renderer.setAnimationLoop(null);
 }
 
 function updateObjects(delta){
@@ -94,19 +94,18 @@ function resolveCollision(firstBody, secondBody){
   if (firstBody.markedForRemoval || secondBody.markedForRemoval) {
     return;
   }
-  // both bodies (and both meshes) will be removed, a new one, resulting from the sum
-  // of the two, will be added to the scene
+
   firstBody.markedForRemoval = true;
   secondBody.markedForRemoval = true;
-  // the most massive body retains its properties (color, radius, etc...)
+
   var prototypeBody;
   //var disappearingBody;
   if (firstBody.mass >= secondBody.mass) {
     prototypeBody = firstBody;
-    // disappearingBody = secondBody;
+    applyContactFlare(secondBody);
   } else {
     prototypeBody = secondBody;
-    // disappearingBody = firstBody;
+    applyContactFlare(firstBody);
   }
 
   var maxRadius = Math.max(firstBody.getRadius(), secondBody.getRadius());
@@ -120,8 +119,6 @@ function resolveCollision(firstBody, secondBody){
   unionMesh.position.y = position.y;
   unionMesh.position.z = position.z;
 
-  // TODO: compute the correct velocity
-
   // m[vx, vy, vz]+mv2[vx2, vy2, vz2]=M[Vx, Vy, Vz]
   // [Vx, Vy, Vz] = m1v1 + m2v2 / M
   var sumMass = firstBody.mass + secondBody.mass;
@@ -130,9 +127,18 @@ function resolveCollision(firstBody, secondBody){
 
   unionBodyRadius = calculateIncrementedRadius(firstBody, secondBody);
   let unionBody = new Planet(sumMass, velocity, unionMesh, unionBodyRadius);
-  // unionBody.radius = unionBodyRadius;
 
-  console.log("New planet from collision, mass: " + unionBody.mass + " radius: " + unionBody.radius);
+  mainPlanet = (mainPlanet === firstBody || mainPlanet === secondBody) ? unionBody : mainPlanet;
+
+  // console.log("New planet from collision, mass: " + unionBody.mass + " radius: " + unionBody.radius);
   newCelestialBodies.push(unionBody);
   updateTotPlanetNumber();
+}
+
+function applyContactFlare(planet) {
+
+  // let pointLight = new THREE.AmbientLight(0xfffff, 10000000);
+  // let pos = planet.getPosition();
+  // pointLight.position.set(pos.x, pos.y, pos.z);
+  // mainPlanet.mesh.add(pointLight);
 }

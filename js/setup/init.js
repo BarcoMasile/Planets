@@ -2,10 +2,12 @@
 function init() {
   container = document.querySelector( '#scene-container' );
   scene = new THREE.Scene();
-  // scene.background = new THREE.Color( 0x22333 );
+  scene.background = new THREE.Color( 0x22333 );
   clock = new THREE.Clock();
   mouse = new THREE.Vector2();
   raycaster = new THREE.Raycaster();
+  additionalPlanesGroup = new THREE.Group();
+
   trajectoriesMaterial = new THREE.LineBasicMaterial({color: 0xffffff});
 
   addOriginMassiveBody(scene);
@@ -20,44 +22,19 @@ function init() {
         },
       false
   );
-  document.addEventListener('mousedown', onMouseDown, false);
-}
-
-function onMouseDown(event) {
-  if (addPlanetMode) {
-    addPlanetMode = false;
-
-    event.preventDefault();
-    mouse.x = (event.clientX / window.innerWidth) * 2 - 1;
-    mouse.y = -(event.clientY / window.innerHeight) * 2 + 1;
-
-    addPlanet(2, 30, null, Constants.MOON_MASS * 5, new THREE.Vector3(4, 0, 4), mouse, scene);
-  }
+  document.addEventListener('mouseup', onMouseUp, false);
 }
 
 function onMouseUp(event) {
-  if (event.ctrlKey || addMode) {
-    /*
-     distance – distance between the origin of the ray and the intersection
-     point – point of intersection, in world coordinates
-     face – intersected face
-     faceIndex – index of the intersected face
-     indices – indices of vertices comprising the intersected face
-     object – the intersected object
-     */
-    var intersections = raycaster.intersectObjects(planes, false);
-    if (intersections.length > 0) {
-      planeIntersection = intersections[0];
+  event.preventDefault();
 
-      var cameraPosition = camera.position.clone();
-      var intersectionPoint = planeIntersection.point.clone();
+  if (addPlanetMode) {
+    addPlanetMode = false;
+    showAdditionalPlane = false;
 
-      var velocityVersor = intersectionPoint.sub(cameraPosition).normalize();
-      var velocityMagnitude = 10;
-      var velocity = velocityVersor.multiplyScalar(velocityMagnitude);
-
-      addDefaultCelestialBody(velocity, planeIntersection.point, scene);
-    }
+    addPlanetFromAdditionalPlane();
+    deleteAdditionalPlanes();
+    togglePlayPause();
   }
 }
 
@@ -98,6 +75,7 @@ function createRenderer() {
   renderer.setClearColor(0x202020, 1.0);
 
   container.appendChild( renderer.domElement );
+
   window.addEventListener( 'resize', () => {
     camera.aspect = container.clientWidth / container.clientHeight;
     camera.updateProjectionMatrix();
@@ -116,6 +94,8 @@ function loadTextures() {
 }
 
 function createStars() {
+  return;
+
   var distance = 50000;
   var geometry = new THREE.Geometry();
 
@@ -128,39 +108,48 @@ function createStars() {
     geometry.vertices.push(vertex);
   }
 
-  var particles = new THREE.Points(geometry, new THREE.PointsMaterial({color: 0x888888}));
+  let material = new THREE.PointsMaterial({ color: 0xFFFFFF, size: 0.25 });
+  var particles = new THREE.Points(geometry, material);
+
   scene.add(particles);
 }
 
-function createStarsNew() {
-  const SEPARATION = 1;
-  const AMOUNTX = 1000;
-  const AMOUNTY = 1000;
-  var numParticles = AMOUNTX * AMOUNTY;
-  var positions = new Float32Array( numParticles * 3 );
-  var scales = new Float32Array( numParticles );
-  var i = 0, j = 0;
-  for ( var ix = 0; ix < AMOUNTX; ix ++ ) {
-    for ( var iy = 0; iy < AMOUNTY; iy ++ ) {
-      positions[ i ] = THREE.Math.randFloatSpread(ix * SEPARATION - ( ( AMOUNTX * SEPARATION ) / 2 )); // x
-      positions[ i + 1 ] = THREE.Math.randFloatSpread(ix * SEPARATION - ( ( AMOUNTX * SEPARATION ) / 2 ) * 0.75); // y
-      positions[ i + 2 ] = THREE.Math.randFloatSpread(iy * SEPARATION - ( ( AMOUNTY * SEPARATION ) / 2 )); // z
-      scales[ j ] = 12;
-      i += 3;
-      j ++;
-    }
+
+function drawAdditionalPlane() {
+  if (additionalPlanes.length !== 0) {
+    return;
   }
-  var geometry = new THREE.BufferGeometry();
-  geometry.addAttribute( 'position', new THREE.BufferAttribute( positions, 3 ) );
-  geometry.addAttribute( 'scale', new THREE.BufferAttribute( scales, 1 ) );
-  var material = new THREE.ShaderMaterial( {
-    uniforms: {
-      color: { value: new THREE.Color( 0x888888 ) },
-    }
-//    ,
-//    vertexShader: document.getElementById( 'vertexshader' ).textContent,
-//    fragmentShader: document.getElementById( 'fragmentshader' ).textContent
-  } );
-  particles = new THREE.Points( geometry, material );
-  scene.add( particles );
+  const x = mainPlanet.getPosition().x, y = mainPlanet.getPosition().y, z = mainPlanet.getPosition().z;
+
+  planeHelperFront = new THREE.Mesh(new THREE.PlaneBufferGeometry(Settings.PLANE_SIZE, Settings.PLANE_SIZE, 8, 8),
+    new THREE.MeshBasicMaterial( {
+      color: 0x248f24, alphaTest: 0, visible: Settings.PLANE_VISIBLE
+    }));
+  planeHelperFront.position.set(x,y,z);
+
+  planeHelperBack = new THREE.Mesh(new THREE.PlaneBufferGeometry(Settings.PLANE_SIZE, Settings.PLANE_SIZE, 8, 8),
+    new THREE.MeshBasicMaterial( {
+      color: 0x248f24, alphaTest: 0, visible: Settings.PLANE_VISIBLE
+    }));
+  planeHelperBack.position.set(x,y,z);
+  planeHelperBack.rotateX(Math.PI);
+
+  grid = new THREE.GridHelper( Settings.PLANE_SIZE, Settings.PLANE_SIZE / 4 );
+  grid.rotateX(-Math.PI / 2.0);
+  grid.position.set(x, y, z);
+
+  additionalPlanesGroup.add(planeHelperFront);
+  additionalPlanesGroup.add(planeHelperBack);
+
+  scene.add(grid);
+  scene.add(additionalPlanesGroup);
+  additionalPlanes.push(planeHelperFront, planeHelperBack);
+}
+
+function deleteAdditionalPlanes() {
+  showAdditionalPlane = false;
+  console.log("Not showing anymore");
+  scene.remove(grid);
+  scene.remove(additionalPlanesGroup);
+  grid = null;
 }

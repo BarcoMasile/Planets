@@ -1,18 +1,14 @@
 
 function resetViewPosition() {
-  let x = mainPlanet.getPosition().x;
-  let y = mainPlanet.getPosition().y;
-  let z = mainPlanet.getPosition().z;
-
-  camera.position.x = x;
-  camera.position.y = y;
-  camera.position.z = z + Settings.CAMERA_INITIAL_DISTANCE;
-
+  camera.updateProjectionMatrix();
+  camera.lookAt(mainPlanet.getPosition());
 }
-
 
 function addPlanetFromView() {
   addPlanetMode = true;
+  showAdditionalPlane = true;
+  drawAdditionalPlane();
+  togglePlayPause();
 }
 
 function updateTotPlanetNumber() {
