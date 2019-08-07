@@ -6,7 +6,7 @@ function init() {
   clock = new THREE.Clock();
   mouse = new THREE.Vector2();
   raycaster = new THREE.Raycaster();
-  additionalPlanesGroup = new THREE.Group();
+  // additionalPlanesGroup = new THREE.Group();
 
   trajectoriesMaterial = new THREE.LineBasicMaterial({color: 0xffffff});
 
@@ -17,17 +17,12 @@ function init() {
       'mousemove',
       function(event) {
           event.preventDefault();
-          // let x = (event.clientX / window.innerWidth) * 2 - 1;
-          let x = (event.clientX / renderer.domElement.clientWidth) * 2 - 1;
-          // let y = -(event.clientY / window.innerHeight) * 2 + 1;
-          let y = -(event.clientY / renderer.domElement.clientHeight) * 2 + 1;
+          let x = (event.clientX / window.innerWidth) * 2 - 1;
+          // let x = (event.clientX / renderer.domElement.clientWidth) * 2 - 1;
+          let y = -(event.clientY / window.innerHeight) * 2 + 1;
+          //let y = -(event.clientY / renderer.domElement.clientHeight) * 2 + 1;
 
-          // x *= 75;
-          // y *= 75;
           mouse.set(x, y);
-          // lux.position.set(x,y, mainPlanet.getPosition().z + 50);
-          // additionalMoon.mesh.position.set(x,y, mainPlanet.mesh.position.z +50);
-          // console.log(additionalMoon.mesh.position.x,additionalMoon.mesh.position.y);
         },
       false
   );
@@ -149,18 +144,20 @@ function drawAdditionalPlane() {
   grid.rotateX(-Math.PI / 2.0);
   grid.position.set(x, y, z);
 
-  additionalPlanesGroup.add(planeHelperFront);
-  additionalPlanesGroup.add(planeHelperBack);
+  additionalPlanes.push(planeHelperFront, planeHelperBack);
 
   scene.add(grid);
-  scene.add(additionalPlanesGroup);
-  additionalPlanes.push(planeHelperFront, planeHelperBack);
+  scene.add(additionalPlanes[0]);
+  scene.add(additionalPlanes[1]);
 }
 
 function deleteAdditionalPlanes() {
   showAdditionalPlane = false;
+
   scene.remove(grid);
-  scene.remove(additionalPlanesGroup);
+  scene.remove(additionalPlanes[0]);
+  scene.remove(additionalPlanes[1]);
+
   additionalPlanes = [];
   grid = null;
 }

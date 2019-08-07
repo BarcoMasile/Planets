@@ -20,7 +20,7 @@ let showAdditionalPlane = false;
 let additionalPlanes = [];
 let grid;
 // let plane;
-let additionalPlanesGroup;
+// let additionalPlanesGroup;
 
 let trajClick = 0;
 

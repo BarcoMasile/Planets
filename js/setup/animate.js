@@ -3,6 +3,8 @@ function update() {
 }
 
 function render() {
+  camera.updateMatrixWorld();
+  raycaster.setFromCamera( mouse, camera );
   renderer.render( scene, camera );
 }
 
