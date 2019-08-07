@@ -1,6 +1,11 @@
 
 function resetViewPosition() {
-  camera.updateProjectionMatrix();
+  // camera.updateMatrix();
+  let x = mainPlanet.getPosition().x, y = mainPlanet.getPosition().y, z = mainPlanet.getPosition().z;
+  // camera.position.set(x, y, z - Settings.CAMERA_INITIAL_DISTANCE);
+  // camera.lookAt(mainPlanet.getPosition());
+
+  createCameraInPosition(x,y,z);
   camera.lookAt(mainPlanet.getPosition());
 }
 

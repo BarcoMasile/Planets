@@ -51,6 +51,21 @@ function createCamera() {
 
   camera = new THREE.PerspectiveCamera( fov, aspect, near, far );
   camera.position.set(-4,4, Settings.CAMERA_INITIAL_DISTANCE);
+  scene.add(camera);
+}
+
+function createCameraInPosition(x,y,z) {
+  const fov = 35;
+  const aspect = container.clientWidth / container.clientHeight;
+
+  const near = 1;
+  const far = Settings.CAMERA_FAR_DISTANCE;
+
+  scene.remove(camera);
+  camera = new THREE.PerspectiveCamera( fov, aspect, near, far );
+  camera.position.set(x ,y, z + Settings.CAMERA_INITIAL_DISTANCE);
+  scene.add(camera);
+  createControls();
 }
 
 function createLights() {

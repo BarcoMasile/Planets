@@ -5,6 +5,7 @@ function update() {
 function render() {
   camera.updateMatrixWorld();
   raycaster.setFromCamera( mouse, camera );
+  // controls.update();
   renderer.render( scene, camera );
 }
 
