@@ -4,7 +4,6 @@ function resetViewPosition() {
   let x = mainPlanet.getPosition().x, y = mainPlanet.getPosition().y, z = mainPlanet.getPosition().z;
   // camera.position.set(x, y, z - Settings.CAMERA_INITIAL_DISTANCE);
   // camera.lookAt(mainPlanet.getPosition());
-
   createCameraInPosition(x,y,z);
   camera.lookAt(mainPlanet.getPosition());
 }
@@ -15,6 +14,13 @@ function addPlanetFromView() {
   deleteAdditionalPlanes();
   drawAdditionalPlane();
   togglePlayPause();
+  toggleTranslationButtons();
+
+}
+
+function toggleTranslationButtons() {
+  const display = document.getElementById("translation-buttons").style.display;
+  document.getElementById("translation-buttons").style.display = display === "none" ? "block" : "none";
 }
 
 function toggleGrid(){
