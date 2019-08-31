@@ -8,10 +8,11 @@ let mainPlanet;
 let clock;
 let mouse;
 let raycaster;
-let axes;
+
 let trajectoriesMaterial;
 let addPlanetMode = false;
-let newlyCreatedMoon;
+let newlyCreatedMoon = null;
+let axes = null;
 let simulationRunning = true;
 let celestialBodies = [];
 let newCelestialBodies = [];
@@ -19,8 +20,8 @@ let newCelestialBodies = [];
 let showAdditionalPlane = false;
 let additionalPlanes = [];
 let grid;
-// let plane;
-// let additionalPlanesGroup;
+
+let showLateralButtons = true;
 
 let trajClick = 0;
 

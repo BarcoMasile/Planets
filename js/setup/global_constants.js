@@ -15,7 +15,8 @@ Constants = {
     "CAMERA_MOVEMENT_STEP" : 1,
     "CONTROLS_TYPE" : "trackball",
     "RADIUS_INCREMENT_PERCENTAGE": 1.005,
-    "VELOCITY_MAGNITUDE": 15
+    "VELOCITY_MAGNITUDE": 15,
+    "MOON_MOVEMENT_STEP": 5
 };
 
 Settings = {

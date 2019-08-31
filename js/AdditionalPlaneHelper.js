@@ -11,7 +11,6 @@ function addPlanetFromAdditionalPlane() {
     const x = planeIntersection.point.x;
     const y = planeIntersection.point.y;
     const z = planeIntersection.point.z;
-    // var planeIntersection = intersections[Math.floor(Math.random()*intersections.length)];
 
     var cameraPosition = camera.position.clone();
     var intersectionPoint = planeIntersection.point.clone();
@@ -30,8 +29,15 @@ function addPlanetFromAdditionalPlane() {
     additionalMoon.radius = Constants.MOON_RADIUS;
     additionalMoon.mesh.position.set(x, y, z);
 
-    scene.add(additionalMoonSphere);
-    celestialBodies.push(additionalMoon);
+    // scene.add(additionalMoonSphere);
+    scene.add(additionalMoon.mesh);
+
+    // TENTATIVO
+    //celestialBodies.push(additionalMoon);
+    axes = new THREE.AxesHelper(8);
+    additionalMoon.mesh.add(axes);
+    newlyCreatedMoon = additionalMoon;
+    // TENTATIVO
 
     updateTotPlanetNumber();
 

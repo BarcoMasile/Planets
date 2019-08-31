@@ -33,12 +33,11 @@ function onMouseUp(event) {
   event.preventDefault();
 
   if (addPlanetMode) {
-    addPlanetMode = false;
+    // hideLateralButtons();
     showAdditionalPlane = false;
 
     addPlanetFromAdditionalPlane();
     deleteAdditionalPlanes();
-    togglePlayPause();
   }
 }
 

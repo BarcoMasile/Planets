@@ -1,14 +1,14 @@
 
 function resetViewPosition() {
-  // camera.updateMatrix();
   let x = mainPlanet.getPosition().x, y = mainPlanet.getPosition().y, z = mainPlanet.getPosition().z;
-  // camera.position.set(x, y, z - Settings.CAMERA_INITIAL_DISTANCE);
-  // camera.lookAt(mainPlanet.getPosition());
+
   createCameraInPosition(x,y,z);
+  camera.updateMatrix();
   camera.lookAt(mainPlanet.getPosition());
 }
 
 function addPlanetFromView() {
+  hideLateralButtons();
   addPlanetMode = true;
   showAdditionalPlane = true;
   deleteAdditionalPlanes();
@@ -21,6 +21,39 @@ function addPlanetFromView() {
 function toggleTranslationButtons() {
   const display = document.getElementById("translation-buttons").style.display;
   document.getElementById("translation-buttons").style.display = display === "none" ? "block" : "none";
+}
+
+function toggleLateralButtons() {
+  const display = document.getElementById("lateral-buttons").style.display;
+  document.getElementById("lateral-buttons").style.display = display === "none" ? "block" : "none";
+  showLateralButtons = display !== "none";
+}
+
+function hideLateralButtons() {
+  document.getElementById("lateral-buttons").style.display = "none";
+}
+
+function planetPositionOK() {
+  addPlanetMode = false;
+  showLateralButtons = true;
+  // remove axeshelper from planet
+  newlyCreatedMoon.mesh.remove(axes);
+  celestialBodies.push(newlyCreatedMoon);
+  toggleTranslationButtons();
+  togglePlayPause();
+  toggleLateralButtons();
+}
+
+function planetPositionCancel() {
+  addPlanetMode = false;
+  showLateralButtons = true;
+  // remove new planet
+  scene.remove(newlyCreatedMoon.mesh);
+  axes = null;
+  newlyCreatedMoon = null;
+  toggleTranslationButtons();
+  togglePlayPause();
+  toggleLateralButtons();
 }
 
 function toggleGrid(){
@@ -42,3 +75,71 @@ function clearTraces(){
     celestialBodies[i].trajectoryVertices = [];
   }
 }
+
+
+function moveXPlus() {
+  if (!newlyCreatedMoon) {
+    return;
+  }
+
+  const pos = newlyCreatedMoon.getPosition();
+  const x = pos.x + Constants.MOON_MOVEMENT_STEP, y = pos.y, z = pos.z;
+
+  newlyCreatedMoon.mesh.position.set(x, y, z);
+}
+
+function moveXMinus() {
+  if (!newlyCreatedMoon) {
+    return;
+  }
+
+  const pos = newlyCreatedMoon.getPosition();
+  const x = pos.x - Constants.MOON_MOVEMENT_STEP, y = pos.y, z = pos.z;
+
+  newlyCreatedMoon.mesh.position.set(x, y, z);
+}
+
+function moveYPlus() {
+  if (!newlyCreatedMoon) {
+    return;
+  }
+
+  const pos = newlyCreatedMoon.getPosition();
+  const x = pos.x, y = pos.y + Constants.MOON_MOVEMENT_STEP, z = pos.z;
+
+  newlyCreatedMoon.mesh.position.set(x, y, z);
+}
+
+function moveYMinus() {
+  if (!newlyCreatedMoon) {
+    return;
+  }
+
+  const pos = newlyCreatedMoon.getPosition();
+  const x = pos.x, y = pos.y - Constants.MOON_MOVEMENT_STEP, z = pos.z;
+
+  newlyCreatedMoon.mesh.position.set(x, y, z);
+}
+
+function moveZPlus() {
+  if (!newlyCreatedMoon) {
+    return;
+  }
+
+  const pos = newlyCreatedMoon.getPosition();
+  const x = pos.x, y = pos.y, z = pos.z + Constants.MOON_MOVEMENT_STEP;
+
+  newlyCreatedMoon.mesh.position.set(x, y, z);
+}
+
+function moveZMinus() {
+  if (!newlyCreatedMoon) {
+    return;
+  }
+
+  const pos = newlyCreatedMoon.getPosition();
+  const x = pos.x, y = pos.y, z = pos.z - Constants.MOON_MOVEMENT_STEP;
+
+  newlyCreatedMoon.mesh.position.set(x, y, z);
+}
+
