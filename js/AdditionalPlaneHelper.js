@@ -19,28 +19,26 @@ function addPlanetFromAdditionalPlane() {
     var velocityMagnitude = Constants.VELOCITY_MAGNITUDE;
     var velocity = velocityVersor.multiplyScalar(velocityMagnitude);
 
-    var additionalMoonGeometry = new THREE.SphereGeometry(1, 32, 32);
+    var additionalMoonGeometry = new THREE.SphereGeometry(newPlanetRadius, 32, 32);
     var additionalMaterial = new THREE.MeshLambertMaterial( { map: textureMoon } );
     var additionalMoonSphere = new THREE.Mesh(additionalMoonGeometry, additionalMaterial);
     additionalMoonSphere.position.set(x, y, z);
     console.log("Mesh position: ", x, y, z);
 
-    var additionalMoon = new Planet(Constants.MOON_MASS, velocity, additionalMoonSphere, Constants.MOON_RADIUS);
-    additionalMoon.radius = Constants.MOON_RADIUS;
+    var additionalMoon = new Planet(newPlanetMass, velocity, additionalMoonSphere, newPlanetRadius);
+    additionalMoon.radius = newPlanetRadius;
     additionalMoon.mesh.position.set(x, y, z);
 
-    // scene.add(additionalMoonSphere);
     scene.add(additionalMoon.mesh);
 
-    // TENTATIVO
-    //celestialBodies.push(additionalMoon);
-    axes = new THREE.AxesHelper(8);
+    axes = new THREE.AxesHelper(newPlanetRadius * 2);
     additionalMoon.mesh.add(axes);
     newlyCreatedMoon = additionalMoon;
-    // TENTATIVO
 
     updateTotPlanetNumber();
 
+    newPlanetRadius = null;
+    newPlanetMass = null;
   } else {
     console.log("No intersections");
   }

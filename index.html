@@ -7,7 +7,9 @@
     <link rel="icon" href="https://discoverthreejs.com/favicon.ico" type="image/x-icon">
     <link href="styles/main.css" rel="stylesheet" type="text/css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <script src="js/lib/jquery.min.js" type="text/javascript"></script>
     <script src="js/lib/three.js" type="text/javascript"></script>
+    <script src="js/lib/popper.min.js" type="text/javascript"></script>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
           integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 </head>
@@ -21,14 +23,6 @@
     </h1>
 </div>
 
-<!--<div class="btn-group functions">
-  <div class="slidecontainer">
-    <input type="range" min="1" max="10" value="5" class="slider" id="slider-input">
-    <p>Mass: <span id="slider-span"></span></p>
-  </div>
-  <br>
-  <br>
-</div>-->
 
 <div class="position-absolute" style="z-index: 1; right: 30px; top: 30px">
     <div class="container" id="lateral-buttons">
@@ -46,11 +40,12 @@
             </button>
         </div>
 
-        <div class="row my-1">
-            <button class="functions-button btn btn-light" style="width: 8rem" id="add-planet-btn"
-                    onclick="addPlanetFromView()">
-                <span class="functions-button-span" id="add-planet-span">Add Planet</span>
-            </button>
+        <div class="row">
+            <div class="btn-group" role="group" aria-label="Basic example" style="width: 8rem;">
+                <button type="button" class="btn btn-light functions-button-span" onclick="addPlanetFromView('MOON')" title="Moon">M</button>
+                <button type="button" class="btn btn-light functions-button-span" onclick="addPlanetFromView('EARTH')" title="Earth">E</button>
+                <button type="button" class="btn btn-light functions-button-span" onclick="addPlanetFromView('JUPITER')" title="Jupiter">J</button>
+            </div>
         </div>
 
         <div class="row my-1">
@@ -78,12 +73,12 @@
         <div class="col-4"></div>
         <div class="col-4">
             <div class="btn-group position-absolute w-40 fixed-bottom" style="z-index: 1">
-                <button class="btn btn-success" onclick="moveXPlus()"><span class="h5">+X</span></button>
-                <button class="btn btn-warning" onclick="moveXMinus()"><span class="h5">-X</span></button>
+                <button class="btn btn-danger" onclick="moveXPlus()"><span class="h5">+X</span></button>
+                <button class="btn btn-danger" onclick="moveXMinus()"><span class="h5">-X</span></button>
                 <button class="btn btn-success" onclick="moveYPlus()"><span class="h5">+Y</span></button>
-                <button class="btn btn-warning" onclick="moveYMinus()"><span class="h5">-Y</span></button>
-                <button class="btn btn-success" onclick="moveZPlus()"><span class="h5">+Z</span></button>
-                <button class="btn btn-warning" onclick="moveZMinus()"><span class="h5">-Z</span></button>
+                <button class="btn btn-success" onclick="moveYMinus()"><span class="h5">-Y</span></button>
+                <button class="btn btn-primary" onclick="moveZPlus()"><span class="h5">+Z</span></button>
+                <button class="btn btn-primary" onclick="moveZMinus()"><span class="h5">-Z</span></button>
             </div>
         </div>
         <div class="col-4"></div>
@@ -94,7 +89,9 @@
         &nbsp;
         &nbsp;
         <button class="btn btn-info" onclick="planetPositionCancel()"><span class="h5">Cancel</span></button>
+
     </div>
+    <br/>
 </div>
 
 

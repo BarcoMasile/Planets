@@ -18,9 +18,7 @@ function init() {
       function(event) {
           event.preventDefault();
           let x = (event.clientX / window.innerWidth) * 2 - 1;
-          // let x = (event.clientX / renderer.domElement.clientWidth) * 2 - 1;
           let y = -(event.clientY / window.innerHeight) * 2 + 1;
-          //let y = -(event.clientY / renderer.domElement.clientHeight) * 2 + 1;
 
           mouse.set(x, y);
         },
@@ -33,7 +31,6 @@ function onMouseUp(event) {
   event.preventDefault();
 
   if (addPlanetMode) {
-    // hideLateralButtons();
     showAdditionalPlane = false;
 
     addPlanetFromAdditionalPlane();

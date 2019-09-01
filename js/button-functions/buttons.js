@@ -7,7 +7,29 @@ function resetViewPosition() {
   camera.lookAt(mainPlanet.getPosition());
 }
 
-function addPlanetFromView() {
+function addPlanetFromView(planetType) {
+  if (planetType) {
+    switch (planetType) {
+      case "EARTH":
+        newPlanetRadius = Constants.EARTH_RADIUS;
+        newPlanetMass = Constants.EARTH_MASS;
+        break;
+
+      case "JUPITER":
+        newPlanetRadius = Constants.JUPITER_RADIUS;
+        newPlanetMass = Constants.JUPITER_MASS;
+        break;
+
+      default:
+        newPlanetRadius = Constants.MOON_RADIUS;
+        newPlanetMass = Constants.MOON_MASS;
+        break;
+    }
+  } else {
+    newPlanetRadius = Constants.MOON_RADIUS;
+    newPlanetMass = Constants.MOON_MASS;
+  }
+
   hideLateralButtons();
   addPlanetMode = true;
   showAdditionalPlane = true;
@@ -54,6 +76,25 @@ function planetPositionCancel() {
   toggleTranslationButtons();
   togglePlayPause();
   toggleLateralButtons();
+}
+
+function changePlanetMass(valore) {
+  if (!newlyCreatedMoon)
+    return;
+
+  switch (valore) {
+    case "EARTH":
+      newlyCreatedMoon.mesh.radius = Constants.EARTH_RADIUS;
+      break;
+
+    case "JUPITER":
+      newlyCreatedMoon.mesh.radius = Constants.JUPITER_RADIUS;
+      break;
+
+    default:
+      newlyCreatedMoon.mesh.radius = Constants.MOON_RADIUS;
+      break;
+  }
 }
 
 function toggleGrid(){

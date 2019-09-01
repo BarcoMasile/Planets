@@ -17,6 +17,9 @@ let simulationRunning = true;
 let celestialBodies = [];
 let newCelestialBodies = [];
 
+let newPlanetRadius;
+let newPlanetMass;
+
 let showAdditionalPlane = false;
 let additionalPlanes = [];
 let grid;
