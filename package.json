@@ -15,5 +15,8 @@
   "bugs": {
     "url": "https://github.com/BarcoMasile/Planets/issues"
   },
-  "homepage": "https://github.com/BarcoMasile/Planets#readme"
+  "homepage": "https://github.com/BarcoMasile/Planets#readme",
+  "dependencies": {
+    "live-server": "^1.2.1"
+  }
 }
