@@ -13,21 +13,25 @@ function addPlanetFromView(planetType) {
       case "EARTH":
         newPlanetRadius = Constants.EARTH_RADIUS;
         newPlanetMass = Constants.EARTH_MASS;
+        newPlanetTexture = textureEarth;
         break;
 
       case "JUPITER":
         newPlanetRadius = Constants.JUPITER_RADIUS;
         newPlanetMass = Constants.JUPITER_MASS;
+        newPlanetTexture = textureJupiter;
         break;
 
       default:
         newPlanetRadius = Constants.MOON_RADIUS;
         newPlanetMass = Constants.MOON_MASS;
+        newPlanetTexture = textureMoon;
         break;
     }
   } else {
     newPlanetRadius = Constants.MOON_RADIUS;
     newPlanetMass = Constants.MOON_MASS;
+    newPlanetTexture = textureMoon;
   }
 
   hideLateralButtons();
@@ -64,6 +68,7 @@ function planetPositionOK() {
   toggleTranslationButtons();
   togglePlayPause();
   toggleLateralButtons();
+  updateTotPlanetNumber();
 }
 
 function planetPositionCancel() {
@@ -76,6 +81,7 @@ function planetPositionCancel() {
   toggleTranslationButtons();
   togglePlayPause();
   toggleLateralButtons();
+  updateTotPlanetNumber();
 }
 
 function changePlanetMass(valore) {

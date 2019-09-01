@@ -102,13 +102,10 @@ function resolveCollision(firstBody, secondBody){
   secondBody.markedForRemoval = true;
 
   var prototypeBody;
-  //var disappearingBody;
   if (firstBody.mass >= secondBody.mass) {
     prototypeBody = firstBody;
-    applyContactFlare(secondBody);
   } else {
     prototypeBody = secondBody;
-    applyContactFlare(firstBody);
   }
 
   var maxRadius = Math.max(firstBody.getRadius(), secondBody.getRadius());
@@ -133,15 +130,6 @@ function resolveCollision(firstBody, secondBody){
 
   mainPlanet = (mainPlanet === firstBody || mainPlanet === secondBody) ? unionBody : mainPlanet;
 
-  // console.log("New planet from collision, mass: " + unionBody.mass + " radius: " + unionBody.radius);
   newCelestialBodies.push(unionBody);
   updateTotPlanetNumber();
-}
-
-function applyContactFlare(planet) {
-
-  // let pointLight = new THREE.AmbientLight(0xfffff, 10000000);
-  // let pos = planet.getPosition();
-  // pointLight.position.set(pos.x, pos.y, pos.z);
-  // mainPlanet.mesh.add(pointLight);
 }

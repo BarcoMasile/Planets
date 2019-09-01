@@ -19,6 +19,7 @@ let newCelestialBodies = [];
 
 let newPlanetRadius;
 let newPlanetMass;
+let newPlanetTexture;
 
 let showAdditionalPlane = false;
 let additionalPlanes = [];
@@ -30,3 +31,5 @@ let trajClick = 0;
 
 let textureOrigin;
 let textureMoon;
+let textureEarth;
+let textureJupiter;

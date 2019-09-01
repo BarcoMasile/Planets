@@ -6,7 +6,6 @@ function init() {
   clock = new THREE.Clock();
   mouse = new THREE.Vector2();
   raycaster = new THREE.Raycaster();
-  // additionalPlanesGroup = new THREE.Group();
 
   trajectoriesMaterial = new THREE.LineBasicMaterial({color: 0xffffff});
 
@@ -35,6 +34,7 @@ function onMouseUp(event) {
 
     addPlanetFromAdditionalPlane();
     deleteAdditionalPlanes();
+    updateTotPlanetNumber();
   }
 }
 
@@ -106,6 +106,9 @@ function loadTextures() {
   var loader = new THREE.TextureLoader();
   textureOrigin = loader.load(Settings.ORIGIN_TEXTURE_FILE);
   textureMoon = loader.load(Settings.MOON_TEXTURE_FILE);
+  textureEarth = loader.load(Settings.EARTH_TEXTURE_FILE);
+  textureJupiter = loader.load(Settings.JUPITER_TEXTURE_FILE);
+
 }
 
 function createStars() {

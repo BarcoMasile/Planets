@@ -7,4 +7,3 @@ createLights();
 createControls();
 animate();
 createStars();
-// createStarsNew();
