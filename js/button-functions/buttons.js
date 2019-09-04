@@ -84,11 +84,11 @@ function planetPositionCancel() {
   updateTotPlanetNumber();
 }
 
-function changePlanetMass(valore) {
+function changePlanetMass(value) {
   if (!newlyCreatedMoon)
     return;
 
-  switch (valore) {
+  switch (value) {
     case "EARTH":
       newlyCreatedMoon.mesh.radius = Constants.EARTH_RADIUS;
       break;

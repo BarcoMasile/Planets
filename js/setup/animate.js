@@ -5,7 +5,6 @@ function update() {
 function render() {
   camera.updateMatrixWorld();
   raycaster.setFromCamera( mouse, camera );
-  // controls.update();
   renderer.render( scene, camera );
 }
 
@@ -36,6 +35,7 @@ function updateObjects(delta){
   trajClick++;
   var nextArray = [];
   var bodiesCount = celestialBodies.length;
+
   for (var i = 0; i < bodiesCount; i++) {
     if (celestialBodies[i].markedForRemoval) {
       scene.remove(celestialBodies[i].mesh);
@@ -52,7 +52,7 @@ function updateObjects(delta){
     celestialBodies.push(newCelestialBodies[i]);
     updateTotPlanetNumber();
   }
-  // important: empties the new bodies vector
+
   newCelestialBodies = [];
 
   for (var i = 0; i < celestialBodies.length; i++) {
@@ -119,8 +119,7 @@ function resolveCollision(firstBody, secondBody){
   unionMesh.position.y = position.y;
   unionMesh.position.z = position.z;
 
-  // m[vx, vy, vz]+mv2[vx2, vy2, vz2]=M[Vx, Vy, Vz]
-  // [Vx, Vy, Vz] = m1v1 + m2v2 / M
+
   var sumMass = firstBody.mass + secondBody.mass;
   var velocity = (firstBody.velocity.clone().multiplyScalar(firstBody.mass).add(secondBody.velocity.clone().multiplyScalar(secondBody.mass)));
   velocity.divideScalar(sumMass);

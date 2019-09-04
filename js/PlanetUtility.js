@@ -68,6 +68,7 @@ function addTrajectorySegment(object, startPoint, endPoint) {
   if (!!object.trajectory) {
     scene.remove(object.trajectory)
   }
+
   if (!object.trajectoryVertices) {
     object.trajectoryVertices = [];
   }

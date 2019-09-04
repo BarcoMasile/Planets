@@ -111,27 +111,6 @@ function loadTextures() {
 
 }
 
-function createStars() {
-  return;
-
-  var distance = 50000;
-  var geometry = new THREE.Geometry();
-
-  for (var i = 0; i < 10000; i++) {
-    var vertex = new THREE.Vector3();
-    vertex.x = THREE.Math.randFloatSpread(distance);
-    vertex.y = THREE.Math.randFloatSpread(distance);
-    vertex.z = THREE.Math.randFloatSpread(distance);
-
-    geometry.vertices.push(vertex);
-  }
-
-  let material = new THREE.PointsMaterial({ color: 0xFFFFFF, size: 0.25 });
-  var particles = new THREE.Points(geometry, material);
-
-  scene.add(particles);
-}
-
 
 function drawAdditionalPlane() {
   if (additionalPlanes.length !== 0) {

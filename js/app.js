@@ -6,4 +6,3 @@ createRenderer();
 createLights();
 createControls();
 animate();
-createStars();
