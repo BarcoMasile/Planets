@@ -84,24 +84,6 @@ function planetPositionCancel() {
   updateTotPlanetNumber();
 }
 
-function changePlanetMass(value) {
-  if (!newlyCreatedMoon)
-    return;
-
-  switch (value) {
-    case "EARTH":
-      newlyCreatedMoon.mesh.radius = Constants.EARTH_RADIUS;
-      break;
-
-    case "JUPITER":
-      newlyCreatedMoon.mesh.radius = Constants.JUPITER_RADIUS;
-      break;
-
-    default:
-      newlyCreatedMoon.mesh.radius = Constants.MOON_RADIUS;
-      break;
-  }
-}
 
 function toggleGrid(){
   showAdditionalPlane = !showAdditionalPlane;

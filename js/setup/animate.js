@@ -73,7 +73,7 @@ function updateObjects(delta){
     if (trajClick % 2 === 0) {
       addTrajectorySegment(celestialBodies[i], previousPosition, newPosition);
     }
-    // check if the body is gone too far: if so, marks it for removal
+
     if (celestialBodies[i].getPosition().distanceTo(new THREE.Vector3(0, 0, 0)) > Constants.REMOVAL_DISTANCE_THRESHOLD) {
       celestialBodies[i].markedForRemoval = true;
     }
